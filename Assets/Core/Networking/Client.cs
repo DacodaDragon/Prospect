@@ -25,7 +25,7 @@ public class Client : MonoBehaviour
         m_UnreliableChannel = netConfig.AddChannel(QosType.Unreliable);
 
         HostTopology Topology = new HostTopology(netConfig, MAX_CONNECTIONS);
-        m_HostID = NetworkTransport.AddHost(Topology, connection.port, null);
+        m_HostID = NetworkTransport.AddHost(Topology, 0);
 
         m_connectionID = NetworkTransport.Connect(m_HostID, connection.ip, connection.port, 0, out m_Error);
 
