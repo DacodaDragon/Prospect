@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ConnectUI : MonoBehaviour {
+public class ConnectionUI : MonoBehaviour {
     [SerializeField] private InputField m_port;
     [SerializeField] private InputField m_ip;
     [SerializeField] private Button m_connect;
