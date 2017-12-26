@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class Server : MonoBehaviour
 {
     private const int MAX_CONNECTIONS = 100;
-    private int m_Port = 5010;
+    [SerializeField] private int m_Port = 5010;
     private int m_HostID;
     private int m_WebHostID;
 
@@ -28,6 +28,8 @@ public class Server : MonoBehaviour
         HostTopology Topology = new HostTopology(netConfig, MAX_CONNECTIONS);
         m_HostID    = NetworkTransport.AddHost         (Topology, m_Port, null);
         m_WebHostID = NetworkTransport.AddWebsocketHost(Topology, m_Port, null);
+
+        m_IsConnected = true;
     }
 
     private void Update()
