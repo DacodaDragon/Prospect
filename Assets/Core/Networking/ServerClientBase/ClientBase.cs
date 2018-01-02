@@ -80,7 +80,7 @@ public abstract class ClientBase : MonoBehaviour
         OnDataRecieved(connectionid, buffer, bufferSize);
     }
 
-    public abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
+    protected abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
 
     public void SendReliable(string message, params int[] client)
     {
