@@ -7,11 +7,11 @@ using UnityEngine.Networking;
 /// </summary>
 public abstract class ServerBase : MonoBehaviour
 {
+
     private List<int> m_connections;
     private int m_hostID;
     private int m_channelReliable;
     private int m_ChannelUnreliable;
-
     private byte m_error;
 
     private bool m_running;
@@ -96,7 +96,6 @@ public abstract class ServerBase : MonoBehaviour
         Ondisconnect(connectionid);
     }
 
-
     /// <summary>
     /// Handles Incoming Data
     /// </summary>
@@ -112,6 +111,10 @@ public abstract class ServerBase : MonoBehaviour
     protected abstract void Ondisconnect(int connectionID);
     protected abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
 
+    public void SendReliable(string message)
+    {
+        SendMessage(message, m_connections.ToArray());
+    }
     public void SendReliable(string message, params int[] client)
     {
         byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
@@ -129,6 +132,10 @@ public abstract class ServerBase : MonoBehaviour
                 message.Length * sizeof(byte),
                 out m_error);
         }
+    }
+    public void SendUnreliable(string message)
+    {
+        SendUnreliable(message, m_connections.ToArray());
     }
     public void SendUnreliable(string message, params int[] client)
     {
