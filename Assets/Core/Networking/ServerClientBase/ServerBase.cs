@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 /// <summary>
 /// Basic Unet Server with Reliable and Unreliable channel
 /// </summary>
-abstract class ServerBase : MonoBehaviour
+public abstract class ServerBase : MonoBehaviour
 {
     private List<int> m_connections;
     private int m_hostID;
