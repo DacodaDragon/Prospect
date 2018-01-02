@@ -113,7 +113,7 @@ public abstract class ServerBase : MonoBehaviour
 
     public void SendReliable(string message)
     {
-        SendMessage(message, m_connections.ToArray());
+        SendReliable(message, m_connections.ToArray());
     }
     public void SendReliable(string message, params int[] client)
     {
