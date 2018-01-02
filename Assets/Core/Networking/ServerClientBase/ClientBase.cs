@@ -29,7 +29,7 @@ public abstract class ClientBase : MonoBehaviour
         m_channelReliable = config.AddChannel(QosType.Reliable);
 
         HostTopology topology = new HostTopology(config, MaxConnections);
-        m_hostID = NetworkTransport.AddHost(topology, port);
+        m_hostID = NetworkTransport.AddHost(topology, 0);
 
         m_connectionID = NetworkTransport.Connect(
             m_hostID, ip, port, 0, out m_error);

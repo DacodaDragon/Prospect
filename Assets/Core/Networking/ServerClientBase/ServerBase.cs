@@ -83,7 +83,7 @@ public abstract class ServerBase : MonoBehaviour
     private void HandleConnect(int connectionid)
     {
         m_connections.Add(connectionid);
-        HandleConnect(connectionid);
+        OnConnection(connectionid);
     }
 
     /// <summary>
