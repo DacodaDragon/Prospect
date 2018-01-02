@@ -82,40 +82,35 @@ public abstract class ClientBase : MonoBehaviour
 
     protected abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
 
-    public void SendReliable(string message, params int[] client)
+    public void SendReliable(string message)
     {
         byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
-        SendReliable(data, client);
+        SendReliable(data);
     }
-    public void SendReliable(byte[] message, params int[] client)
+    public void SendReliable(byte[] message)
     {
-        for (int i = 0; i < client.Length; i++)
-        {
-            NetworkTransport.Send
-                (
-                m_hostID, client[i],
-                m_channelReliable,
-                message,
-                message.Length * sizeof(byte),
-                out m_error);
-        }
+        NetworkTransport.Send(
+            m_hostID,
+            m_connectionID,
+            m_channelReliable,
+            message,
+            message.Length * sizeof(byte),
+            out m_error
+            );
     }
-    public void SendUnreliable(string message, params int[] client)
+    public void SendUnreliable(string message)
     {
         byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
-        SendReliable(data, client);
+        SendReliable(data);
     }
-    public void SendUnreliable(byte[] message, params int[] client)
+    public void SendUnreliable(byte[] message)
     {
-        for (int i = 0; i < client.Length; i++)
-        {
-            NetworkTransport.Send
-                (
-                m_hostID, client[i],
-                m_channelUnreliable,
-                message,
-                message.Length * sizeof(byte),
-                out m_error);
-        }
+        NetworkTransport.Send(
+            m_hostID, m_connectionID,
+            m_channelUnreliable,
+            message,
+            message.Length * sizeof(byte),
+            out m_error
+            );
     }
 }
