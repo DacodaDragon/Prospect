@@ -15,6 +15,7 @@ public abstract class ServerBase : MonoBehaviour
     private byte m_error;
 
     private bool m_running;
+    public bool IsRunning { get { return m_running; } }
 
     /// <summary>
     /// Starts the server
@@ -107,9 +108,9 @@ public abstract class ServerBase : MonoBehaviour
         OnDataRecieved(connectionid, buffer, bufferSize);
     }
 
-    public abstract void OnConnection(int connectionID);
-    public abstract void Ondisconnect(int connectionID);
-    public abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
+    protected abstract void OnConnection(int connectionID);
+    protected abstract void Ondisconnect(int connectionID);
+    protected abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
 
     public void SendReliable(string message, params int[] client)
     {

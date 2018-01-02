@@ -14,6 +14,7 @@ public abstract class ClientBase : MonoBehaviour
     private byte m_error;
 
     private bool m_running;
+    public bool IsRunning { get { return m_running; } }
 
     /// <summary>
     /// Starts the server
@@ -31,7 +32,7 @@ public abstract class ClientBase : MonoBehaviour
         m_hostID = NetworkTransport.AddHost(topology, port);
 
         m_connectionID = NetworkTransport.Connect(
-            m_hostID, ip, port, 0, out m_error );
+            m_hostID, ip, port, 0, out m_error);
 
         m_running = true;
     }
