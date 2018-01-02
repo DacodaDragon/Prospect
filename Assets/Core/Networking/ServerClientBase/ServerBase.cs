@@ -9,7 +9,7 @@ public abstract class ServerBase : MonoBehaviour
 {
     private List<int> m_connections;
     private int m_hostID;
-    private int m_ChannelReliable;
+    private int m_channelReliable;
     private int m_ChannelUnreliable;
 
     private byte m_error;
@@ -28,7 +28,7 @@ public abstract class ServerBase : MonoBehaviour
 
         ConnectionConfig config = new ConnectionConfig();
         m_ChannelUnreliable = config.AddChannel(QosType.Unreliable);
-        m_ChannelReliable   = config.AddChannel(QosType.Reliable);
+        m_channelReliable   = config.AddChannel(QosType.Reliable);
 
         HostTopology topology = new HostTopology(config, MaxConnections);
         m_hostID = NetworkTransport.AddHost(topology, port);
@@ -110,4 +110,41 @@ public abstract class ServerBase : MonoBehaviour
     public abstract void OnConnection(int connectionID);
     public abstract void Ondisconnect(int connectionID);
     public abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
+
+    public void SendReliable(string message, params int[] client)
+    {
+        byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
+        SendReliable(data, client);
+    }
+    public void SendReliable(byte[] message, params int[] client)
+    {
+        for (int i = 0; i < client.Length; i++)
+        {
+            NetworkTransport.Send
+                (
+                m_hostID, client[i],
+                m_channelReliable,
+                message,
+                message.Length * sizeof(byte),
+                out m_error);
+        }
+    }
+    public void SendUnreliable(string message, params int[] client)
+    {
+        byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
+        SendReliable(data, client);
+    }
+    public void SendUnreliable(byte[] message, params int[] client)
+    {
+        for (int i = 0; i < client.Length; i++)
+        {
+            NetworkTransport.Send
+                (
+                m_hostID, client[i],
+                m_ChannelUnreliable,
+                message,
+                message.Length * sizeof(byte),
+                out m_error);
+        }
+    }
 }

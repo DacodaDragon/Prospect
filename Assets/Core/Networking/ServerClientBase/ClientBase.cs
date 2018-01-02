@@ -7,9 +7,9 @@ using UnityEngine.Networking;
 public abstract class ClientBase : MonoBehaviour
 {
     private int m_hostID;
-    private int m_ConnectionID;
-    private int m_ChannelReliable;
-    private int m_ChannelUnreliable;
+    private int m_connectionID;
+    private int m_channelReliable;
+    private int m_channelUnreliable;
 
     private byte m_error;
 
@@ -24,13 +24,13 @@ public abstract class ClientBase : MonoBehaviour
         NetworkTransport.Init();
 
         ConnectionConfig config = new ConnectionConfig();
-        m_ChannelUnreliable = config.AddChannel(QosType.Unreliable);
-        m_ChannelReliable = config.AddChannel(QosType.Reliable);
+        m_channelUnreliable = config.AddChannel(QosType.Unreliable);
+        m_channelReliable = config.AddChannel(QosType.Reliable);
 
         HostTopology topology = new HostTopology(config, MaxConnections);
         m_hostID = NetworkTransport.AddHost(topology, port);
 
-        m_ConnectionID = NetworkTransport.Connect(
+        m_connectionID = NetworkTransport.Connect(
             m_hostID, ip, port, 0, out m_error );
 
         m_running = true;
@@ -80,4 +80,41 @@ public abstract class ClientBase : MonoBehaviour
     }
 
     public abstract void OnDataRecieved(int clientID, byte[] buffer, int size);
+
+    public void SendReliable(string message, params int[] client)
+    {
+        byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
+        SendReliable(data, client);
+    }
+    public void SendReliable(byte[] message, params int[] client)
+    {
+        for (int i = 0; i < client.Length; i++)
+        {
+            NetworkTransport.Send
+                (
+                m_hostID, client[i],
+                m_channelReliable,
+                message,
+                message.Length * sizeof(byte),
+                out m_error);
+        }
+    }
+    public void SendUnreliable(string message, params int[] client)
+    {
+        byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
+        SendReliable(data, client);
+    }
+    public void SendUnreliable(byte[] message, params int[] client)
+    {
+        for (int i = 0; i < client.Length; i++)
+        {
+            NetworkTransport.Send
+                (
+                m_hostID, client[i],
+                m_channelUnreliable,
+                message,
+                message.Length * sizeof(byte),
+                out m_error);
+        }
+    }
 }
