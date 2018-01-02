@@ -93,7 +93,7 @@ public abstract class ServerBase : MonoBehaviour
     private void HandleDisconnect(int connectionid)
     {
         m_connections.Remove(connectionid);
-        HandleDisconnect(connectionid);
+        Ondisconnect(connectionid);
     }
 
 
