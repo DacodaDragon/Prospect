@@ -1,38 +1,43 @@
 ﻿using UnityEngine;
-public class RiskTestServer : ServerBase
+using Game.Networking.Server;
+
+namespace Game.Networking.Test.Server
 {
-
-    public delegate void StringMessage(string message);
-    public StringMessage OnMessageRecieved;
-
-    public void Update()
+    public class RiskTestServer : ServerBase
     {
-        if (IsRunning)
-            HandleConnections();
-    }
 
-    protected override void OnConnection(int connectionID)
-    {
-        Debug.Log(string.Format("client {0}: has connected.",connectionID));
-        if (OnMessageRecieved != null)
-            OnMessageRecieved.Invoke(string.Format("client {0}: has connected.", connectionID));
-    }
+        public delegate void StringMessage(string message);
+        public StringMessage OnMessageRecieved;
 
-    protected override void Ondisconnect(int connectionID)
-    {
-        Debug.Log(string.Format("client {0}:  has disconnected.",connectionID));
-        if (OnMessageRecieved != null)
-            OnMessageRecieved.Invoke(string.Format("client {0}: has connected.", connectionID));
-    }
+        public void Update()
+        {
+            if (IsRunning)
+                HandleConnections();
+        }
 
-    protected override void OnDataRecieved(int clientID, byte[] buffer, int size)
-    {
-        string message = System.Text.Encoding.UTF8.GetString(buffer, 0, size);
+        protected override void OnConnection(int connectionID)
+        {
+            Debug.Log(string.Format("client {0}: has connected.", connectionID));
+            if (OnMessageRecieved != null)
+                OnMessageRecieved.Invoke(string.Format("client {0}: has connected.", connectionID));
+        }
 
-        string formattedMessage = string.Format("client {0}: {1}", clientID, message);
-        Debug.Log(formattedMessage);
+        protected override void Ondisconnect(int connectionID)
+        {
+            Debug.Log(string.Format("client {0}:  has disconnected.", connectionID));
+            if (OnMessageRecieved != null)
+                OnMessageRecieved.Invoke(string.Format("client {0}: has connected.", connectionID));
+        }
 
-        if (OnMessageRecieved != null)
-            OnMessageRecieved.Invoke(formattedMessage);
+        protected override void OnDataRecieved(int clientID, byte[] buffer, int size)
+        {
+            string message = System.Text.Encoding.UTF8.GetString(buffer, 0, size);
+
+            string formattedMessage = string.Format("client {0}: {1}", clientID, message);
+            Debug.Log(formattedMessage);
+
+            if (OnMessageRecieved != null)
+                OnMessageRecieved.Invoke(formattedMessage);
+        }
     }
 }

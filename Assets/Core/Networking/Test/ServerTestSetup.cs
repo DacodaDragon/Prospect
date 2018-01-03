@@ -2,31 +2,34 @@
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class ServerTestSetup : MonoBehaviour
+namespace Game.Networking.Test.Server
 {
-
-    [SerializeField] private InputField m_port;
-    [SerializeField] private InputField m_conn;
-    [SerializeField] private Button m_start;
-    [SerializeField] private RiskTestServer m_testServer;
-    [SerializeField] private UnityEvent m_OnConnect;
-
-    public void Start()
+    public class ServerTestSetup : MonoBehaviour
     {
-        m_start.onClick.AddListener(StartServer);
-    }
 
-    public void StartServer()
-    {
-        int port = 1234;
-        int conn = 50;
+        [SerializeField] private InputField m_port;
+        [SerializeField] private InputField m_conn;
+        [SerializeField] private Button m_start;
+        [SerializeField] private RiskTestServer m_testServer;
+        [SerializeField] private UnityEvent m_OnConnect;
 
-        if (m_port.text != "")
-            port = int.Parse(m_port.text);
-        if (m_conn.text != "")
-            conn = int.Parse(m_conn.text);
+        public void Start()
+        {
+            m_start.onClick.AddListener(StartServer);
+        }
 
-        m_testServer.Startup(port, conn);
-        m_OnConnect.Invoke();
+        public void StartServer()
+        {
+            int port = 1234;
+            int conn = 50;
+
+            if (m_port.text != "")
+                port = int.Parse(m_port.text);
+            if (m_conn.text != "")
+                conn = int.Parse(m_conn.text);
+
+            m_testServer.Startup(port, conn);
+            m_OnConnect.Invoke();
+        }
     }
 }
