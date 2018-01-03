@@ -16,7 +16,7 @@ public class RiskTestClient : ClientBase
         string message = System.Text.Encoding.UTF8.GetString(buffer, 0, size);
         Debug.Log(string.Format("client {0}: {1}", clientID, message));
         if (OnMessageRecieved != null)
-            OnMessageRecieved.Invoke(string.Format("Server: ", clientID));
+            OnMessageRecieved.Invoke(string.Format("Server {0}: {1}",clientID, message));
     }
 }
 
