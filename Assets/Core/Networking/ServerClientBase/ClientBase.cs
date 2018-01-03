@@ -84,7 +84,7 @@ public abstract class ClientBase : MonoBehaviour
 
     public void SendReliable(string message)
     {
-        byte[] data = System.Text.Encoding.Unicode.GetBytes(message);
+        byte[] data = System.Text.Encoding.UTF8.GetBytes(message);
         SendReliable(data);
     }
     public void SendReliable(byte[] message)
