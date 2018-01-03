@@ -18,7 +18,7 @@ public class ServerTestMessenger : MonoBehaviour
 
     public void RecieveMessage(string message)
     {
-        m_textfield.text += message + 'n';
+        m_textfield.text += message + '\n';
     }
 
     public void SendNetworkMessage(string message)
