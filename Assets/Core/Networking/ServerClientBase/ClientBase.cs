@@ -64,7 +64,7 @@ public abstract class ClientBase : MonoBehaviour
         switch (recievedData)
         {
             case NetworkEventType.DataEvent:
-                HandleRecievedData(connectionID, recievedBuffer, bufferSize);
+                HandleRecievedData(connectionID, recievedBuffer, dataSize);
                 break;
         }
     }

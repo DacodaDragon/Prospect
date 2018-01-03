@@ -71,7 +71,7 @@ public abstract class ServerBase : MonoBehaviour
                 HandleDisconnect(connectionID);
                 break;
             case NetworkEventType.DataEvent:
-                HandleRecievedData(connectionID, recievedBuffer, bufferSize);
+                HandleRecievedData(connectionID, recievedBuffer, dataSize);
                 break;
         }
     }
