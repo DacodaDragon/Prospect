@@ -1,13 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RiskTestClient : ClientBase
 {
-    void Start()
-    {
-        Connect(5010,"127.0.0.1",1000);
-    }
+    public delegate void StringMessage(string message);
+    public StringMessage OnMessageRecieved;
 
     public void Update()
     {
@@ -17,8 +13,10 @@ public class RiskTestClient : ClientBase
 
     protected override void OnDataRecieved(int clientID, byte[] buffer, int size)
     {
-        string message = System.Text.Encoding.Unicode.GetString(buffer, 0, size);
+        string message = System.Text.Encoding.UTF8.GetString(buffer, 0, size);
         Debug.Log(string.Format("client {0}: {1}", clientID, message));
+        if (OnMessageRecieved != null)
+            OnMessageRecieved.Invoke(string.Format("Server: ", clientID));
     }
 }
 
