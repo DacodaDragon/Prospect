@@ -10,7 +10,7 @@ namespace Game.Networking.Test.Server
         [SerializeField] private InputField m_port;
         [SerializeField] private InputField m_conn;
         [SerializeField] private Button m_start;
-        [SerializeField] private RiskTestServer m_testServer;
+        [SerializeField] private ProspectTestServer m_testServer;
         [SerializeField] private UnityEvent m_OnConnect;
 
         public void Start()

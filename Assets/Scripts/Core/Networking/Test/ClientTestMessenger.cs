@@ -7,7 +7,7 @@ namespace Game.Networking.Test.Client
     {
         [SerializeField] private InputField m_text;
         [SerializeField] private Button m_send;
-        [SerializeField] private RiskTestClient m_client;
+        [SerializeField] private ProspectTestClient m_client;
         [SerializeField] private Text m_textfield;
 
         public void Start()

@@ -10,7 +10,7 @@ namespace Game.Networking.Test.Client
         [SerializeField] private InputField m_conn;
         [SerializeField] private InputField m_ip;
         [SerializeField] private Button m_start;
-        [SerializeField] private RiskTestClient m_testClient;
+        [SerializeField] private ProspectTestClient m_testClient;
         [SerializeField] private UnityEvent m_OnConnect;
 
         public void Start()

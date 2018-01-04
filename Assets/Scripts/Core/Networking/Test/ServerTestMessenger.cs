@@ -8,7 +8,7 @@ namespace Game.Networking.Test.Server
     {
         [SerializeField] private InputField m_text;
         [SerializeField] private Button m_send;
-        [SerializeField] private RiskTestServer m_server;
+        [SerializeField] private ProspectTestServer m_server;
         [SerializeField] private Text m_textfield;
         string text;
 
