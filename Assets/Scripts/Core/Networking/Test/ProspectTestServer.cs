@@ -3,7 +3,7 @@ using Game.Networking.Server;
 
 namespace Game.Networking.Test.Server
 {
-    public class RiskTestServer : ServerBase
+    public class ProspectTestServer : ServerBase
     {
 
         public delegate void StringMessage(string message);

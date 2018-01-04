@@ -3,7 +3,7 @@ using Game.Networking.Client;
 
 namespace Game.Networking.Test.Client
 {
-    public class RiskTestClient : ClientBase
+    public class ProspectTestClient : ClientBase
     {
         public delegate void StringMessage(string message);
         public StringMessage OnMessageRecieved;
